@@ -1,0 +1,21 @@
+{
+	"name": "socket.io-bandmeter",
+	"version": "0.0.1.1",
+	"private": true,
+	"main":"app.js",
+	"repository":{
+		"type":"git",
+		"url"
+	}
+	"dependencies": {
+		"express": "2.5.4",
+		"socket.io": "0.8.7"
+	},
+	"subdomain": "oscarfernandez-bandmeter",
+	"scripts": {
+		"start": "node app.js"
+	},
+	"engines": {
+		"node": "0.10.x"
+	}
+}
