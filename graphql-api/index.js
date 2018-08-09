@@ -10,7 +10,7 @@ app.use('/graphql', bodyParser.json(), graphqlExpress({
 }));
 
 app.use('/graphiql', graphiqlExpress({
-    endPointURL: '/graphql'
+    endpointURL: '/graphql'
 }));
 
 const PORT = 5000;

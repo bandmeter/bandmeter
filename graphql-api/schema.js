@@ -5,6 +5,7 @@ const typeDefs = `
         id: ID!
         email: String!
         password: String!
+        profile: Profile
     }
     type Profile {
         id: ID!
