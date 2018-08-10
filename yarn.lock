@@ -4383,7 +4383,7 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
-"lodash@>=3.5 <5", lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.3.0:
+"lodash@>=3.5 <5", lodash@^4.15.0, lodash@^4.16.2, lodash@^4.17.10, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
@@ -4630,6 +4630,12 @@ mkdirp@0.5.1, mkdirp@0.5.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkdirp@
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+mobx-react-form@^1.35.1:
+  version "1.35.1"
+  resolved "https://registry.yarnpkg.com/mobx-react-form/-/mobx-react-form-1.35.1.tgz#892aec6729224e11c2978fb82e67adc4e80e3a6a"
+  dependencies:
+    lodash "^4.16.2"
 
 ms@2.0.0:
   version "2.0.0"
@@ -5770,6 +5776,20 @@ react-file-base64@^1.0.3:
   dependencies:
     react "^15.6.1"
 
+react-ga@^2.2.0:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.5.3.tgz#0f447c73664c069a5fc341f6f431262e3d4c23c4"
+  optionalDependencies:
+    prop-types "^15.6.0"
+    react "^15.6.2 || ^16.0"
+
+react-mic@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/react-mic/-/react-mic-11.0.0.tgz#efd810f8a8954b9f31d76d3b5827a44a9e0217f8"
+  dependencies:
+    prop-types "^15.5.10"
+    react-ga "^2.2.0"
+
 react-motion@^0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/react-motion/-/react-motion-0.5.2.tgz#0dd3a69e411316567927917c6626551ba0607316"
@@ -5878,7 +5898,7 @@ react@^15.6.1:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
-react@^16.4.1:
+"react@^15.6.2 || ^16.0", react@^16.4.1:
   version "16.4.2"
   resolved "https://registry.yarnpkg.com/react/-/react-16.4.2.tgz#2cd90154e3a9d9dd8da2991149fdca3c260e129f"
   dependencies:
