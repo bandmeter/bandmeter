@@ -1,19 +1,7 @@
 const { makeExecutableSchema } = require('graphql-tools');
 
 const typeDefs = `
-    type User {
-        id: ID!
-        email: String!
-        password: String!
-        fbId: String
-        goId: String
-        name: String!
-        picture: String
-        country: String
-        city: String
-        instruments: String
-        Bands: [Band]
-    }
+    
 
     type Band {
         id: ID!

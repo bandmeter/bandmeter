@@ -4,7 +4,19 @@ section.login{
     position:absolute;
     top:50%;
     left:50%;
-    transform:translate(-50%, -50%)
+    transform:translate(-75%, -50%)
+}
+
+.accessArea{
+    width: 25%;
+    display:block;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(75%, -50%);
+    background:#fff;
+    padding:0 3rem 2rem;
+    border-radius: 1rem;
 }
 
 .logo{
@@ -16,6 +28,7 @@ section.login{
     color:#fff;
     margin:0 auto;
     display:block;
+    width:92%;
 }
 
 .btn-facebook:hover{

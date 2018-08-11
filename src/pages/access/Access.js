@@ -9,11 +9,13 @@ import ModalWindow from '../../components/common/ModalWindow/ModalWindow';
 import axios from 'axios';
 
 import logo from './images/logo.png';
-import './Login.css';
+import './Access.css';
+
+import RegisterForm from '../../components/access/register-form';
 
 const leavingSpringConfig = {stiffness: 60, damping: 15};
 
-class LoginBandmeter extends Component {
+class Access extends Component {
 
     state = {
         isLogged: false, 
@@ -152,6 +154,10 @@ class LoginBandmeter extends Component {
             <section className="login">
                 <FadeIn delay="1000" transitionDuration="1000">
                 <img className="logo" src={logo} alt="Bandmeter.com" />
+                </FadeIn>      
+            </section>
+            <div className="accessArea">
+                <RegisterForm />
                 <FacebookProvider appId={config.fbAppId}>
                     <Login
                     scope="email"
@@ -161,12 +167,11 @@ class LoginBandmeter extends Component {
                     <button className="btn btn-facebook"><i className="fab fa-facebook-square"></i><span>Login via Facebook</span></button>
                     </Login>
                 </FacebookProvider> 
-                </FadeIn>      
-            </section>
+            </div>
         </div>
         )
     }
 
 }
 
-export default LoginBandmeter;
+export default Access;

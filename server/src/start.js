@@ -23,41 +23,66 @@ export const start = async () => {
     const Albums = db.collection('albums')
     const Songs = db.collection('songs')
     const Tracks = db.collection('tracks')
-    const Notifications = db.collection('notifications')
-    const Messages = db.collection('messages')
-    const Tasks = db.collection('tasks')
 
     const typeDefs = [`
       type Query {
         users: [User]
         user(_id: String): User
+        userByFB(fbId: String): User
+        userByGo(goId: String): User
         albums: [Album]
         album(_id: String): Album
         bands: [Band]
         songs: [Song]
         tracks: [Track]
-        Notifications: [Notification]
-        messages: [Message]
-        tasks: [Task]
       }
 
-      type Post {
+      type User {
         _id: String
-        title: String
-        content: String
-        comments: [Comment]
+        name: String!
+        email: String!
+        password: String!
+        fbId: String
+        goId: String
+        bands: [Band]
+        picture:String
+        country: String
+        city: String
+        created_at: String
       }
 
-      type Comment {
+      type Band {
         _id: String
-        postId: String
-        content: String
-        post: Post
+        name: String!
+        picture: String
+        administrator: [User]
+        members: [User]
+        collaborators: [User]
+        albums: [Album]
+        created_at: String
+      }
+
+      type Album {
+        _id: String
+        name: String!
+        songs: [Song]
+        created_at: String
+      }
+
+      type Song {
+        _id: String
+        name: String!
+        tracks: [Track]
+        created_at: String
+      }
+
+      type Track {
+        _id: String
+        file: String!
       }
 
       type Mutation {
-        createPost(title: String, content: String): Post
-        createComment(postId: String, content: String): Comment
+        createUser(name: String, email: String, password: String): User
       }
 
       schema {
@@ -68,34 +93,28 @@ export const start = async () => {
 
     const resolvers = {
       Query: {
-        post: async (root, {_id}) => {
-          return prepare(await Posts.findOne(ObjectId(_id)))
+        user: async (root, {_id}) => {
+          return prepare(await Users.findOne(ObjectId(_id)))
         },
-        posts: async () => {
-          return (await Posts.find({}).toArray()).map(prepare)
+        userByFB: async (root, {fbId}) =>{
+          return prepare(await Users.findOne({fbId:fbId}));
         },
-        comment: async (root, {_id}) => {
-          return prepare(await Comments.findOne(ObjectId(_id)))
+        userByGo: async (root, {goId}) => {
+          return prepare (await Users.findOne({goId:goId}));
+        },
+        users: async () => {
+          return (await Users.find({}).toArray()).map(prepare)
         },
       },
-      Post: {
-        comments: async ({_id}) => {
-          return (await Comments.find({postId: _id}).toArray()).map(prepare)
-        }
-      },
-      Comment: {
-        post: async ({postId}) => {
-          return prepare(await Posts.findOne(ObjectId(postId)))
+      User: {
+        bands: async ({_id}) => {
+          return (await Bands.find({postId: _id}).toArray()).map(prepare)
         }
       },
       Mutation: {
-        createPost: async (root, args, context, info) => {
+        createUser: async (root, args, context, info) => {
           const res = await Posts.insert(args)
           return prepare(await Posts.findOne({_id: res.insertedIds[1]}))
-        },
-        createComment: async (root, args) => {
-          const res = await Comments.insert(args)
-          return prepare(await Comments.findOne({_id: res.insertedIds[1]}))
         },
       },
     }
