@@ -34,8 +34,8 @@ class Home extends Component {
     }
 
     render(){
-        if(!this.status.logged && !this.userData){
-            return(<Redirect to="/login" />)
+        if(!this.status.logged){
+            return(<Redirect to="/access" />)
         }
         return (
             <section className="home">
