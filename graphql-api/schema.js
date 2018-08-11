@@ -5,25 +5,14 @@ const typeDefs = `
         id: ID!
         email: String!
         password: String!
-        profile: Profile
-    }
-    type Profile {
-        id: ID!
+        fbId: String
+        goId: String
         name: String!
         picture: String
-        city: City
-        instruments: [Instrument]
+        country: String
+        city: String
+        instruments: String
         Bands: [Band]
-    }
-
-    type City {
-        id: ID!
-        name: String!
-    }
-
-    type Instrument {
-        id: ID!
-        name: String!
     }
 
     type Band {
@@ -70,8 +59,6 @@ const typeDefs = `
 
     type Query {
         users: [User]
-        city: [City]
-        instruments: [Instrument]
         bands: [Band]
         albums: [Album]
         events: [Event]
