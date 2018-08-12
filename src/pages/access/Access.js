@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import config from '../../config.json';
 import FacebookProvider, { Login } from 'react-facebook';
+import GoogleLogin from 'react-google-login';
 import {TransitionMotion, spring} from 'react-motion';
 import FadeIn from 'react-fade-in';
 import { Redirect } from 'react-router';
@@ -81,17 +82,17 @@ class Access extends Component {
     };
 
     handleResponse = (response) =>{
-        console.log("Entra");
         this.toDataUrl(`https://graph.facebook.com/v3.1/${response.profile.id}/picture?access_token=${response.tokenDetail.accessToken}`, (myBase64) => {
             console.log(myBase64); // myBase64 is the base64 string
-            console.log("Entra 2")
             localStorage.setItem('profileImage', myBase64);
 
             this.setState({isLogged: true});
           });
         localStorage.setItem('userData', JSON.stringify(response));
     }
-
+    handleGoogleResponse = (response) =>{
+        console.log(response);
+    }
     toDataUrl = (url, callback) => {
         const xhr = new XMLHttpRequest();
         xhr.onload = () => {

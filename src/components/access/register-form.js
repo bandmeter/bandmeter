@@ -6,6 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import { createMuiTheme } from '@material-ui/core/styles';
+import './register-form.css';
 
 const styles = theme => ({
   container: {
