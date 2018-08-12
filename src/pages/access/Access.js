@@ -156,6 +156,7 @@ class Access extends Component {
                 <img className="logo" src={logo} alt="Bandmeter.com" />
                 </FadeIn>      
             </section>
+            <FadeIn delay="1000" transitionDuration="1000">
             <div className="accessArea">
                 <RegisterForm />
                 <FacebookProvider appId={config.fbAppId}>
@@ -168,6 +169,7 @@ class Access extends Component {
                     </Login>
                 </FacebookProvider> 
             </div>
+            </FadeIn>
         </div>
         )
     }

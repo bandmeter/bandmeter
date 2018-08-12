@@ -5,6 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
+import { createMuiTheme } from '@material-ui/core/styles';
 
 const styles = theme => ({
   container: {
@@ -14,7 +15,8 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: "100%"
+    width: "100%",
+    color:"#ffffff"
   },
   button: {
     margin: theme.spacing.unit,
@@ -42,7 +44,10 @@ class RegisterForm extends React.Component {
 
     return (
       <form className={classes.container} noValidate autoComplete="off">
+      <h3>Regístrate</h3>
         <TextField
+          inputProps={{style:{color:"#ffffff"}}}
+          style={{color:"#ffffff"}}
           required
           id="name"
           label="Nombre"
@@ -50,6 +55,7 @@ class RegisterForm extends React.Component {
           value={this.state.name}
           onChange={this.handleChange("name")}
           margin="normal"
+          color="secondary"
         />
         <TextField
           required
