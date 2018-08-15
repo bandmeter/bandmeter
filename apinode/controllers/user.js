@@ -139,6 +139,24 @@ exports.login = function(req,res){
 	});
 }
 
+exports.loginByFbId = function(req,res){
+	console.log(req.body);
+	User.findOne({fbId:req.body.fbId},function(err, user){
+		console.log(user);
+		if(err) return res.status(500).send(err.message);
+		if(user !== null){
+			authed[user._id] = user;
+			user.status = 'logged';
+			user.save(function(err){
+				if(err) return res.send(500, err.message);
+				res.status(200).jsonp(user);
+			});
+		}else{
+			res.status(200).send('ko');
+		}
+	});
+}
+
 exports.islogged = function(req,res){
 	if(authed[req.body.userid]){
 		res.status(200).send(authed[req.body.userid]);

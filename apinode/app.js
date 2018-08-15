@@ -12,11 +12,15 @@ var multipart = require('connect-multiparty');
 app.use(multipart({
     uploadDir: '../uploads'
 }));
+console.log("Voy a conectar");
+var db = mongoose.connection;
+mongoose.connect('mongodb://localhost/test');
 
-mongoose.connect('mongodb://localhost:27017/bandmeter',{user:"Z6Amb355gp", password: "xqt9Lb3QQL"}, function(err,res){
-	if(err) throw err;
-	console.log('Connected to database');
-});
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+	console.log("Estoy conectado a la bbdd");
+  // we're connected!
+});	
 
 app.use(cookieParser());
 app.use(session({
@@ -180,6 +184,9 @@ var user = express.Router();
 user.route('/user/login')
 	.post(UserCtrl.login);
 
+user.route('/user/login-fb')
+	.post(UserCtrl.loginByFbId);
+
 user.route('/user/register')
 	.post(UserCtrl.addUser);
 
@@ -228,6 +235,6 @@ file.route('/uploadimg')
 
 app.use('/api', file);
 
-app.listen(3001, function(){
+app.listen(3000, function(){
 	console.log("Node server runing on http://localhost:3001");
 });

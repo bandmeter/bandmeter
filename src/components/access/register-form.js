@@ -7,6 +7,8 @@ import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import { createMuiTheme } from '@material-ui/core/styles';
 import './register-form.css';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const styles = theme => ({
   container: {
@@ -32,32 +34,33 @@ const styles = theme => ({
 });
 
 class RegisterForm extends React.Component {
-  state = {};
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
+  state = {
+    legals: false
   };
 
+  handleChange = name => event => {
+    if(name === 'legals'){
+      this.setState({
+        [name]: event.target.checked
+      });
+    }else{
+      this.setState({
+        [name]: event.target.value
+      });
+    }
+  };
+
+  validate = () =>{
+    if(this.state.legals){
+      
+    }
+  }
   render() {
     const { classes } = this.props;
 
     return (
       <form className={classes.container} noValidate autoComplete="off">
       <h3>Regístrate</h3>
-        <TextField
-          inputProps={{style:{color:"#ffffff"}}}
-          style={{color:"#ffffff"}}
-          required
-          id="name"
-          label="Nombre"
-          className={classes.textField}
-          value={this.state.name}
-          onChange={this.handleChange("name")}
-          margin="normal"
-          color="secondary"
-        />
         <TextField
           required
           id="email"
@@ -88,8 +91,18 @@ class RegisterForm extends React.Component {
           onChange={this.handleChange("passwordConfirmation")}
           margin="normal"
         />
-        <Button variant="contained" color="primary" className={classes.button}>
-          Send
+        <FormControlLabel
+          control={
+            <Switch
+              checked={this.state.legals}
+              onChange={this.handleChange('legals')}
+              value="legals"
+            />
+          }
+          label="He leido y acetp las condiciones legales"
+        />
+        <Button variant="contained" color="primary" className={classes.button} onClick={this.validate}>
+          Registrar
           <Icon className={classes.rightIcon}>send</Icon>
         </Button>
       </form>

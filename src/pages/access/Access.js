@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import config from '../../config.json';
 import FacebookProvider, { Login } from 'react-facebook';
-import GoogleLogin from 'react-google-login';
 import {TransitionMotion, spring} from 'react-motion';
 import FadeIn from 'react-fade-in';
 import { Redirect } from 'react-router';
@@ -12,7 +11,7 @@ import axios from 'axios';
 import logo from './images/logo.png';
 import './Access.css';
 
-import RegisterForm from '../../components/access/register-form';
+import HomeMenu from '../../components/access/home-menu';
 
 const leavingSpringConfig = {stiffness: 60, damping: 15};
 
@@ -82,16 +81,24 @@ class Access extends Component {
     };
 
     handleResponse = (response) =>{
-        this.toDataUrl(`https://graph.facebook.com/v3.1/${response.profile.id}/picture?access_token=${response.tokenDetail.accessToken}`, (myBase64) => {
-            console.log(myBase64); // myBase64 is the base64 string
-            localStorage.setItem('profileImage', myBase64);
 
-            this.setState({isLogged: true});
-          });
-        localStorage.setItem('userData', JSON.stringify(response));
-    }
-    handleGoogleResponse = (response) =>{
-        console.log(response);
+        let user = {
+            fbId: response.profile.id
+        };
+
+        axios.post(`${config.apiBaseUrl}/user/login-fb`, user)
+             .then(res =>{
+                 console.log(res);
+             })
+        //Esto es para el registro
+        /*this.toDataUrl(`https://graph.facebook.com/v3.1/${response.profile.id}/picture?access_token=${response.tokenDetail.accessToken}`, (myBase64) => {
+            let user = {
+                name: response.profile.fullName,
+                email: reponse.profile.email,
+                imamge: myBase64,
+                fbId: response.profile.id
+            }
+          });*/
     }
     toDataUrl = (url, callback) => {
         const xhr = new XMLHttpRequest();
@@ -150,31 +157,30 @@ class Access extends Component {
                         )}
                     </div>
                     }
-            </TransitionMotion>
-            {this.state.message ? <ModalWindow message={this.state.message} type={this.state.type} closeModal={this.closeModal} /> : '' }
-            <section className="login">
+                </TransitionMotion>
+                {this.state.message ? <ModalWindow message={this.state.message} type={this.state.type} closeModal={this.closeModal} /> : '' }
+                <section className="login">
+                    <FadeIn delay="1000" transitionDuration="1000">
+                        <img className="logo" src={logo} alt="Bandmeter.com" />
+                    </FadeIn>      
+                </section>
                 <FadeIn delay="1000" transitionDuration="1000">
-                <img className="logo" src={logo} alt="Bandmeter.com" />
-                </FadeIn>      
-            </section>
-            <FadeIn delay="1000" transitionDuration="1000">
-            <div className="accessArea">
-                <RegisterForm />
-                <FacebookProvider appId={config.fbAppId}>
-                    <Login
-                    scope="email"
-                    onResponse={this.handleResponse}
-                    onError={this.handleError}
-                    >
-                    <button className="btn btn-facebook"><i className="fab fa-facebook-square"></i><span>Login via Facebook</span></button>
-                    </Login>
-                </FacebookProvider> 
+                    <div className="accessArea">
+                        <HomeMenu />
+                        <FacebookProvider appId={config.fbAppId}>
+                            <Login
+                                scope="email"
+                                onResponse={this.handleResponse}
+                                onError={this.handleError}
+                            >
+                                <button className="btn btn-facebook"><i className="fab fa-facebook-square"></i><span>Acceder via Facebook</span></button>
+                            </Login>
+                        </FacebookProvider> 
+                    </div>
+                </FadeIn>
             </div>
-            </FadeIn>
-        </div>
         )
     }
-
 }
 
 export default Access;
