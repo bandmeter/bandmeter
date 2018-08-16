@@ -2,9 +2,7 @@
 
 # dependencies
 /node_modules
-/graphql-api/node_modules
-/apinode/node_modules
-/server/node_modules
+/rest-api/node_modules
 
 # testing
 /coverage
