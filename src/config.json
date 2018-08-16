@@ -1,5 +1,5 @@
 {
-    "apiBaseUrl": "http://localhost:3001/api",
+    "apiBaseUrl": "http://localhost:3000/api",
     "socketUrl" : "http://bandmeter.com:3030",
     "defaultLanguage" : "en",
     "fbAppId": "734905063269553",
