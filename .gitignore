@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /rest-api/node_modules
+/apinode/node_modules
 
 # testing
 /coverage
