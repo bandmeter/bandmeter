@@ -13,11 +13,6 @@ app.use(multipart({
     uploadDir: '../uploads'
 }));
 
-mongoose.connect('mongodb://localhost:27017/bandmeter',{user:"Z6Amb355gp", password: "xqt9Lb3QQL"}, function(err,res){
-	if(err) throw err;
-	console.log('Connected to database');
-});
-
 app.use(cookieParser());
 app.use(session({
 	secret: 'b4ndm3t3r',
@@ -95,24 +90,6 @@ musicstyle.route('/musicstyle/:id')
 
 app.use('/api', musicstyle);
 
-// Notifications
-var NotificationCtrl = require('./controllers/notification');
-
-var notification = express.Router();
-
-notification.route('/notifications')
-	.post(NotificationCtrl.addNotification);
-
-notification.route('/notifications/:idUser')
-	.get(NotificationCtrl.findByUser);
-
-notification.route('/notification/:id')
-	.get(NotificationCtrl.findById)
-	.put(NotificationCtrl.updateNotification)
-	.delete(NotificationCtrl.deleteNotification);
-
-app.use('/api', notification);
-
 // Instrument
 var InstrumentCtrl = require('./controllers/instrument');
 
@@ -172,53 +149,6 @@ jamroom.route('/searchjamroom/:name')
 
 app.use('/api', jamroom);
 
-// User
-var UserCtrl = require('./controllers/user');
-
-var user = express.Router();
-
-user.route('/user/login')
-	.post(UserCtrl.login);
-
-user.route('/user/register')
-	.post(UserCtrl.addUser);
-
-user.route('/user/logout')
-	.post(UserCtrl.logout);
-
-/*user.route('/user/addBand')
-	.post(UserCtrl.addBand);*/
-
-user.route('/users')
-	.get(UserCtrl.findAllUsers)
-	.post(UserCtrl.addUser);
-
-user.route('/usersonline')
-	.get(UserCtrl.findUsersOnline);
-
-user.route('/search/:nickname')
-	.get(UserCtrl.findAllUsersByNickname)
-
-user.route('/user/:id')
-	.get(UserCtrl.findById)
-	.post(UserCtrl.updateUser)
-	.delete(UserCtrl.deleteUser);
-
-user.route('/friend/:id')
-	.post(UserCtrl.addFriend)
-	.delete(UserCtrl.deleteFriend);
-
-user.route('/profile/:slug')
-	.get(UserCtrl.findBySlug);
-
-user.route('/islogged')
-	.post(UserCtrl.islogged);
-
-user.route('/activate/:token')
-	.post(UserCtrl.activate);
-
-app.use('/api', user);
-
 var FileCtrl = require('./controllers/file');
 
 var file = express.Router();
@@ -228,6 +158,15 @@ file.route('/uploadimg')
 
 app.use('/api', file);
 
-app.listen(3001, function(){
-	console.log("Node server runing on http://localhost:3001");
-});
+var port = 3600;
+
+mongoose.Promise = global.Promise;
+
+mongoose.connect('mongodb://localhost:27017/bandmeter', {useNewUrlParser: true})
+        .then(() => {
+            console.log("La conexión a la BBDD se ha realizado");
+            app.listen(port, ()=>{
+                console.log("El servidor está corriendo en http://localhost:"+port);
+            })
+        })
+        .catch(err=>{console.log(err)});
