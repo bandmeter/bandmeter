@@ -1,5 +1,4 @@
-var mongoose = require('mongoose');
-var JamRoom = mongoose.model('JamRoom');
+var JamRoom = require('../models/jamroom');
 var slugify = require('slugify');
 
 exports.findAllJamRooms = function(req,res){

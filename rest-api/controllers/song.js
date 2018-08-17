@@ -1,73 +1,65 @@
-var Band = require('../models/band');
+var Song = require('../models/song');
 
-exports.findAllBands = function(req,res){
-	Band.find(function(err,bands){
+exports.findAllSongs = function(req,res){
+	Song.find(function(err,songs){
 		if(err) res.send(500, err.message);
-		res.status(200).jsonp(bands);
+		res.status(200).jsonp(songs);
 	});
 }
 
 exports.findBySlug = function(req,res){
-	Band.findOne({slug:req.params.slug},function(err, band){
+	Song.findOne({slug:req.params.slug},function(err, song){
 		if(err) return res.send(500, err.message);
-		res.status(200).jsonp(band);
+		res.status(200).jsonp(song);
 	});
 }
 
 exports.findByName = function(req,res){
-	Band.findOne({name:{ $regex : new RegExp(req.params.name, "i") }},function(err, band){
+	Song.findOne({name:{ $regex : new RegExp(req.params.name, "i") }},function(err, song){
 		if(err) return res.send(500, err.message);
-		res.status(200).jsonp(band);
+		res.status(200).jsonp(song);
 	});
 }
 
-exports.findByName = function(req,res){
-	Band.findOne(req.params.name, function(err,band){
+exports.findByAlbum = function(req,res){
+	Song.findOne(req.params.idAlbum, function(err,song){
 		if(err) return res.send(500, err.message);
-		res.status(200).jsonp(band);
+		res.status(200).jsonp(song);
 	});
 }
 
 exports.findById = function(req,res){
-	Band.findById(req.params.id, function(err,band){
+	Song.findById(req.params.id, function(err,bsongand){
 		if(err) return res.send(500, err.message);
-		res.status(200).jsonp(band);
+		res.status(200).jsonp(song);
 	});
 }
 
-exports.addBand = function(req,res){
+exports.addSong = function(req,res){
 	if(authed[sessionID]){
 		var slug = req.body.name.toLowerCase().replace(' ','-').replace('á','a').replace('é','e').replace('í','i').replace('ó','o').replace('ú','u').replace('ñ','gn');
-		var band = new Band({
+		var song = new Song({
 			name: req.body.name,
 			slug: slug,
-			logo: req.body.logo,
-			imageBand: req.body.imageBand,
-			musicStyle: req.body.musicStyle,
-			members: req.body.members
 		});
-		band.save(function(err,band){
+		song.save(function(err,song){
 			if(err) return res.send(500, err.message);
-			res.status(200).jsonp(band);
+			res.status(200).jsonp(song);
 		});
 	}else{
 		res.send(403, 'Access Forbidden');
 	}
 }
 
-exports.updateBand = function(req,res){
+exports.updateSong = function(req,res){
 	if(authed[sessionID]){
-		Band.findById(req.params.id, function(err, band){
+		Band.findById(req.params.id, function(err, song){
 			var slug = req.body.name.toLowerCase().replace(' ','-').replace('á','a').replace('é','e').replace('í','i').replace('ó','o').replace('ú','u').replace('ñ','gn');
 			band.name = req.body.name;
 			band.slug = slug;
-			band.logo = req.body.logo;
-			band.imageBand = req.body.imageBand;
-			band.musicStyle = req.body.musicStyle;
-			band.members = req.body.members;
-			band.save(function(err){
+			song.save(function(err){
 				if(err) return res.send(500, err.message);
-				res.status(200).jsonp(band);
+				res.status(200).jsonp(song);
 			});
 		});
 	}else{
@@ -75,10 +67,10 @@ exports.updateBand = function(req,res){
 	}
 }
 
-exports.deleteBand = function(req,res){
+exports.deleteSong = function(req,res){
 	if(authed[sessionID]){
-		Band.findById(req.params.id, function(err,band){
-			band.remove(function(err){
+		Song.findById(req.params.id, function(err,song){
+			song.remove(function(err){
 				if(err) return res.send(500, err.message);
 				res.status(200);
 			});
