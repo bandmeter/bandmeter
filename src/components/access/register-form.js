@@ -1,11 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
-import { createMuiTheme } from '@material-ui/core/styles';
 import './register-form.css';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -99,7 +97,7 @@ class RegisterForm extends React.Component {
               value="legals"
             />
           }
-          label="He leido y acetp las condiciones legales"
+          label="He leido y acepto las condiciones legales"
         />
         <Button variant="contained" color="primary" className={classes.button} onClick={this.validate}>
           Registrar

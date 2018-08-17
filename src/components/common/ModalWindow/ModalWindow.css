@@ -30,7 +30,7 @@
 .success{
     background:green;
 }
-.error{
+.error, .fb-register{
     background:#b40202;
 }
 .ModalTitle{
@@ -51,10 +51,11 @@
 
 .ModalMessage{
     position: absolute;
-    top:50%;
+    top:30%;
     left:50%;
     transform: translate(-50%,-50%);
     text-align: center;
+    width:70%;
 }
 
 .ModalContainer .btn{
@@ -62,4 +63,12 @@
     bottom:10px;
     left:50%;
     transform: translate(-50%)
+}
+.MuiFormControlLabel-root-1{
+    position: absolute;
+    top: 50%;
+    left: 20%;
+}
+.MuiSwitch-colorSecondary-11.MuiSwitch-checked-9{
+    color:#b40202!important;
 }

@@ -7,7 +7,6 @@ class User extends Component{
     render(){
         return(
             <Draggable
-                axis="x"
                 handle=".handle"
                 defaultPosition={{x: 0, y: 0}}
                 position={null}

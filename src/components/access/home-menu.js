@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import './home-menu.css';
+
 class HomeMenu extends Component {
     render(){
         return(
@@ -11,6 +13,7 @@ class HomeMenu extends Component {
                     <li>
                         <Link to="/sign-up">Registrarse</Link>
                     </li>
+                    <li className="clr"></li>
                 </ul>
             </div>
         )

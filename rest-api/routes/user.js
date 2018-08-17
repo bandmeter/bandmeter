@@ -11,8 +11,14 @@ var md_auth = require('../middlewares/authenticated');
 user.route('/user/login')
 	.post(UserCtrl.login);
 
+user.route('/user/login-fb')
+	.post(UserCtrl.loginFacebook);
+
 user.route('/user/register')
 	.post(UserCtrl.addUser);
+
+user.route('/user/register-fb')
+	.post(UserCtrl.addUserFacebook);
 
 user.route('/user/logout')
 	.post(UserCtrl.logout);

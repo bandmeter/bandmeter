@@ -72,10 +72,8 @@ exports.findUsersOnline = function(req,res){
 
 exports.addUser = function(req,res){
 	var crypto = require('crypto');
-
 	var password = crypto.createHmac('sha1', new Buffer(req.body.mail,'utf-8')).update(new Buffer(req.body.password,'utf-8')).digest('hex');
 	var slug = req.body.username.toLowerCase().replace(' ','-').replace('á','a').replace('é','e').replace('í','i').replace('ó','o').replace('ú','u').replace('ñ','gn');
-
 	var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -118,11 +116,64 @@ exports.addUser = function(req,res){
 	});
 }
 
+exports.addUserFacebook = function(req,res){
+	var slug = req.body.fullname.toLowerCase().replace(' ','-').replace('á','a').replace('é','e').replace('í','i').replace('ó','o').replace('ú','u').replace('ñ','gn');
+
+	var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 15; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+	var token = text;
+	var user = new User({
+		fullname: req.body.fullname,
+		slug: slug,
+		token: token,
+		email: req.body.email,
+		image: req.body.image,
+		fbId: req.body.fbId,
+		active:true,
+	});
+	user.save(function(err,user){
+		if(err) return res.status(500).send(err.message);
+		// send the message and get a callback with an error or details of the message that was sent
+		//server.send(message, function(err, message) { console.log(err || message); });
+		if(user !== null){
+			authed[user._id] = user;
+			user.status = 'logged';
+			user.save(function(err){
+				if(err) return res.send(500, err.message);
+				res.status(200).jsonp(user);
+			});			
+		}
+	});
+}
+
 exports.login = function(req,res){
 	var crypto = require('crypto');
 	var password = crypto.createHmac('sha1', new Buffer(req.body.email,'utf-8')).update(new Buffer(req.body.password,'utf-8')).digest('hex');
 	User.findOne({'email': req.body.email, 'password':password,'active': true}, function(err, user){
 		if(err) return res.status(500).send(err.message);
+		if(user !== null){
+			authed[user._id] = user;
+			user.status = 'logged';
+			user.save(function(err){
+				if(err) return res.send(500, err.message);
+				res.status(200).jsonp(user);
+			});
+		}else{
+			res.status(200).send('ko');
+		}
+
+	});
+}
+
+exports.loginFacebook = function(req,res){
+	console.log(req.body);
+	User.findOne({'email': req.body.email, 'fbId':req.body.fbId,'active': true}, function(err, user){
+		if(err) return res.status(500).send(err.message);
+		console.log(user);
 		if(user !== null){
 			authed[user._id] = user;
 			user.status = 'logged';

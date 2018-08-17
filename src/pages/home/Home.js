@@ -5,6 +5,9 @@ import { Redirect } from 'react-router'
 import axios from 'axios';
 
 import User from '../../components/home/User';
+import './home.css';
+
+import Header from '../../components/common/Header/Header';
 
 class Home extends Component {
     status = {
@@ -12,19 +15,18 @@ class Home extends Component {
     }
     constructor(props){
         super(props);
-        this.userData = JSON.parse(localStorage.getItem('userData'));
-
+        this.userData = JSON.parse(sessionStorage.getItem('user-data'));
         if(this.userData){
-            let img = localStorage.getItem('profileImage');
-            this.imageUrl = img;
-        }
-
-        axios.post(`${config.apiBaseUrl}/islogged`).then((response)=>{
-            console.log(response.data);
-            if(response.data !== 'ko'){
-                this.setState({logged: true});
+            let payload ={
+                userid : this.userData._id
             }
-        });
+            axios.post(`${config.apiBaseUrl}/islogged`, payload).then((response)=>{
+                console.log(response.data);
+                if(response.data === 'ko'){
+                    this.userData = undefined;
+                }
+            });
+        }
     }
 
     componentDidMount(){
@@ -34,12 +36,13 @@ class Home extends Component {
     }
 
     render(){
-        if(!this.status.logged){
+        if(!this.userData){
             return(<Redirect to="/access" />)
         }
         return (
             <section className="home">
-                <User imageUrl={this.imageUrl} userName={this.userData.profile.name} />
+                <Header />
+                <User imageUrl={this.userData.image} userName={this.userData.fullname} />
             </section>
         )
     }

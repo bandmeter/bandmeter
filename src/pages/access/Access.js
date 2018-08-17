@@ -83,22 +83,38 @@ class Access extends Component {
     handleResponse = (response) =>{
 
         let user = {
-            fbId: response.profile.id
+            fbId: response.profile.id,
+            email: response.profile.email
         };
 
         axios.post(`${config.apiBaseUrl}/user/login-fb`, user)
              .then(res =>{
                  console.log(res);
+                 if(res.data === 'ko'){
+                    this.setState({message: "Esta cuenta de Facebook no está registrada en el sistema. ¿Quieres registrarte con ella?", type: "fb-register"});
+                    //Esto es para el registro
+                    this.toDataUrl(`https://graph.facebook.com/v3.1/${response.profile.id}/picture?access_token=${response.tokenDetail.accessToken}`, (myBase64) => {
+                        this.user = {
+                            fullname: response.profile.name,
+                            email: response.profile.email,
+                            image: myBase64,
+                            fbId: response.profile.id
+                        }
+                    });
+                 }else{
+                    this.setState({isLogged: true});
+                 }
              })
-        //Esto es para el registro
-        /*this.toDataUrl(`https://graph.facebook.com/v3.1/${response.profile.id}/picture?access_token=${response.tokenDetail.accessToken}`, (myBase64) => {
-            let user = {
-                name: response.profile.fullName,
-                email: reponse.profile.email,
-                imamge: myBase64,
-                fbId: response.profile.id
-            }
-          });*/
+
+    }
+    registerWithFacebook = () =>{
+        axios.post(`${config.apiBaseUrl}/user/register-fb`, this.user)
+             .then(res =>{
+                 if(res.status === 200){
+                    sessionStorage.setItem('user-data',JSON.stringify(res.data));
+                    this.setState({isLogged: true});
+                 }
+             });
     }
     toDataUrl = (url, callback) => {
         const xhr = new XMLHttpRequest();
@@ -120,6 +136,12 @@ class Access extends Component {
     }
 
     closeModal = () =>{
+        this.setState({message:undefined});
+        if(this.state.type === 'fb-register'){
+            this.registerWithFacebook();
+        }
+    }
+    legalsAccepted = () =>{
         this.setState({message:undefined});
     }
     render(){
@@ -162,9 +184,7 @@ class Access extends Component {
                 <section className="login">
                     <FadeIn delay="1000" transitionDuration="1000">
                         <img className="logo" src={logo} alt="Bandmeter.com" />
-                    </FadeIn>      
-                </section>
-                <FadeIn delay="1000" transitionDuration="1000">
+  
                     <div className="accessArea">
                         <HomeMenu />
                         <FacebookProvider appId={config.fbAppId}>
@@ -176,8 +196,9 @@ class Access extends Component {
                                 <button className="btn btn-facebook"><i className="fab fa-facebook-square"></i><span>Acceder via Facebook</span></button>
                             </Login>
                         </FacebookProvider> 
-                    </div>
-                </FadeIn>
+                    </div>   
+                    </FadeIn> 
+                </section>
             </div>
         )
     }

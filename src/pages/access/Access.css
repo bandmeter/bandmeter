@@ -4,20 +4,17 @@ section.login{
     position:absolute;
     top:50%;
     left:50%;
-    transform:translate(-75%, -50%)
+    transform:translate(-50%, -50%)
 }
 
 .accessArea{
-    width: 25%;
+    width: 50%;
     display:block;
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(75%, 25%);
     background:rgba(0,0,0,.5);
     border: 1px solid #000;
-    padding:0 3rem 2rem;
+    padding:1rem 3rem 2rem;
     border-radius: 1rem;
+    margin:1rem auto;
 }
 
 .logo{

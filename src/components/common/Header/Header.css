@@ -1,0 +1,11 @@
+.MuiAppBar-colorPrimary-10{
+    background:#b40202!important;
+}
+.MuiIconButton-label-48 img{
+    border-radius:50%;
+    opacity:0.7;
+    border:1px solid rgba(0,0,0,0.8)
+}
+.MuiIconButton-label-48 img:hover{
+    opacity:1;
+}

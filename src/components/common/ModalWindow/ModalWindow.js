@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import LegalsCheck from './legals-check';
 import './ModalWindow.css';
 
 class ModalWindow extends Component {
@@ -9,17 +10,28 @@ class ModalWindow extends Component {
 
     constructor(props){
         super(props);
-        this.data = {message: props.message, type : `ModalHeader ${props.type}`};
-        console.log(props);
+        this.data = {message: props.message, type : `ModalHeader ${props.type}`, legalsAccepted: props.legalsAccepted };
         switch (props.type){
             case 'success':
                 this.data.title = "Felicidades";
+                break;
+            case 'fb-register':
+                this.data.title = '¿Quieres registrarte con tu cuenta de Facebook?';
                 break;
             case 'error':
                 this.data.title = 'Ha habido un error';
                 break;
         }
     }
+
+    handleChange = name => event => {
+        if(name === 'legals'){
+          this.setState({
+            [name]: event.target.checked
+          });
+        }
+        console.log(this.state.legals);
+    };
 
     render(){
         return(

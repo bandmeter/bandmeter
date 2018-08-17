@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^1.4.3",
+    "@material-ui/icons": "^2.0.2",
     "ajv": "^6.5.2",
     "axios": "^0.18.0",
+    "material-ui-icons": "^1.0.0-beta.36",
     "mobx-react-form": "^1.35.1",
     "re-resizable": "^4.7.1",
     "react": "^16.4.1",
