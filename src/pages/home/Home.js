@@ -9,6 +9,9 @@ import './home.css';
 
 import Header from '../../components/common/Header/Header';
 import SideMenu from '../../components/common/SideMenu/side-menu';
+import Footer from '../../components/common/Footer/footer';
+import Content from '../../components/home/Content';
+
 
 class Home extends Component {
     state = {
@@ -30,12 +33,6 @@ class Home extends Component {
         }
     }
 
-    componentDidMount(){
-        if(this.userData){
-            console.log(this.userData);
-        }
-    }
-
     handleSideMenu = (open) =>{
         this.setState({sideMenuOpen: !this.state.sideMenuOpen});
     }
@@ -48,7 +45,8 @@ class Home extends Component {
             <section className="home">
                 <Header onChange={this.handleSideMenu} />
                 <SideMenu open={this.state.sideMenuOpen} />
-                <User imageUrl={this.userData.image} userName={this.userData.fullname} />
+                <Content user={this.userData} />
+                <Footer />
             </section>
         )
     }

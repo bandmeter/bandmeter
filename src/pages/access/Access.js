@@ -187,7 +187,6 @@ class Access extends Component {
                         <img className="logo" src={logo} alt="Bandmeter.com" />
   
                     <div className="accessArea">
-                        <HomeMenu />
                         <FacebookProvider appId={config.fbAppId}>
                             <Login
                                 scope="email"

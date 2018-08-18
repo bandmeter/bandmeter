@@ -120,7 +120,6 @@ class SideMenu extends Component{
                 }}
             >
             <div className={classes.toolbar} />
-            <List></List>
             <List>
 {options.map((option, index) => (
     <MenuItem
