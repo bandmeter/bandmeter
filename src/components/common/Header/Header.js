@@ -8,8 +8,14 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
 
 import './Header.css';
+import logo from './images/logo.png';
+
+const drawerWidth = 240;
 
 const styles = {
   root: {
@@ -28,6 +34,7 @@ class Header extends React.Component {
   state = {
     auth: true,
     anchorEl: null,
+    open:false
   };
 
   constructor(props){
@@ -50,6 +57,13 @@ class Header extends React.Component {
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
+
+  //Handle Drawer
+  handleDrawer = () => {
+    this.setState({ open: !this.state.open });
+    this.props.onChange(this.state.open);
+  };
+
   render() {
     const { classes } = this.props;
     const { auth, anchorEl } = this.state;
@@ -58,11 +72,11 @@ class Header extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.handleDrawer}>
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>
-              Bandmeter
+              <img className="header-logo" src={logo} alt="Bandmeter" />
             </Typography>
             {auth && (
               <div>

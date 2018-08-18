@@ -102,6 +102,7 @@ class Access extends Component {
                         }
                     });
                  }else{
+                     sessionStorage.setItem('user-data', JSON.stringify(res.data));
                     this.setState({isLogged: true});
                  }
              })

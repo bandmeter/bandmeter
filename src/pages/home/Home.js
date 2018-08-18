@@ -8,10 +8,12 @@ import User from '../../components/home/User';
 import './home.css';
 
 import Header from '../../components/common/Header/Header';
+import SideMenu from '../../components/common/SideMenu/side-menu';
 
 class Home extends Component {
-    status = {
-        logged : false
+    state = {
+        logged : false,
+        sideMenuOpen: false
     }
     constructor(props){
         super(props);
@@ -21,7 +23,6 @@ class Home extends Component {
                 userid : this.userData._id
             }
             axios.post(`${config.apiBaseUrl}/islogged`, payload).then((response)=>{
-                console.log(response.data);
                 if(response.data === 'ko'){
                     this.userData = undefined;
                 }
@@ -35,13 +36,18 @@ class Home extends Component {
         }
     }
 
+    handleSideMenu = (open) =>{
+        this.setState({sideMenuOpen: !this.state.sideMenuOpen});
+    }
+
     render(){
         if(!this.userData){
             return(<Redirect to="/access" />)
         }
         return (
             <section className="home">
-                <Header />
+                <Header onChange={this.handleSideMenu} />
+                <SideMenu open={this.state.sideMenuOpen} />
                 <User imageUrl={this.userData.image} userName={this.userData.fullname} />
             </section>
         )
