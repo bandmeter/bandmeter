@@ -11,6 +11,7 @@ import Menu from '@material-ui/core/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
+import  { Redirect } from 'react-router';
 
 import './Header.css';
 import logo from './images/logo.png';
@@ -34,7 +35,8 @@ class Header extends React.Component {
   state = {
     auth: true,
     anchorEl: null,
-    open:false
+    open:false,
+    redirect: undefined
   };
 
   constructor(props){
@@ -54,8 +56,8 @@ class Header extends React.Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = () => {
-    this.setState({ anchorEl: null });
+  handleClose = (link) => {
+    this.setState({ anchorEl: null, redirect: link });
   };
 
   //Handle Drawer
@@ -64,10 +66,20 @@ class Header extends React.Component {
     this.props.onChange(this.state.open);
   };
 
+  handeSearch = (event) =>{
+    this.setState({search: event.target.value});
+  }
+
   render() {
     const { classes } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
+    if(this.state.redirect){
+      alert(this.state.redirect);
+      return(
+        <Redirect to={this.state.redirect} />
+      )
+    }
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -78,6 +90,7 @@ class Header extends React.Component {
             <Typography variant="title" color="inherit" className={classes.flex}>
               <img className="header-logo" src={logo} alt="Bandmeter" />
             </Typography>
+            <input className="searchInput" placeholder="Buscar" type="text" onChange={this.handleSearch} />
             {auth && (
               <div>
                 <IconButton
@@ -102,9 +115,11 @@ class Header extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>Mi perfil</MenuItem>
-                  <MenuItem onClick={this.handleClose}>Mi cuenta</MenuItem>
-                  <MenuItem onClick={this.handleClose}>Salir</MenuItem>
+                  <MenuItem onClick={() =>{this.handleClose('/profile')}}>Mi perfil</MenuItem>
+                  <MenuItem onClick={() => {this.handleClose('/bands')}}>Mis bandas</MenuItem>
+                  <MenuItem onClick={() =>{this.handleClose('/notifications')}}>Notificaciones</MenuItem>
+                  <MenuItem onClick={()=>{this.handleClose('/account')}}>Mi cuenta</MenuItem>
+                  <MenuItem onClick={()=>{this.handleClose('/sign-out')}}>Salir</MenuItem>
                 </Menu>
               </div>
             )}

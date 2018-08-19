@@ -1,0 +1,8 @@
+.bands-content{
+    width:100%;
+    height:100vh;
+    position: absolute;
+    background:#ddd;
+    top:60px;
+    padding:20px;
+}

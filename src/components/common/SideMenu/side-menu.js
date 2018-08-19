@@ -6,7 +6,6 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 
-
 const drawerWidth = 240;
 
 const options = [
@@ -94,6 +93,8 @@ const styles = theme => ({
         },
       });
 
+let link = '';
+
 class SideMenu extends Component{
     state = {
         open: this.props.open,
@@ -103,8 +104,19 @@ class SideMenu extends Component{
         super(props);
     }
 
-    handleMenuItemClick = (link) =>{
-        console.log(link)
+    handleMenuItemClick = (event,index) =>{
+      switch(index){
+        case 0:
+          link="/jamrooms";
+          break;
+        case 1:
+          link = "/bands";
+          break;
+        case 2:
+          link ="/notifications";
+          break;
+      }
+      this.props.onChange(link);
     }
 
     render(){
@@ -124,7 +136,7 @@ class SideMenu extends Component{
 {options.map((option, index) => (
     <MenuItem
       key={option}
-      disabled={index === 0}
+      disabled={index === this.state.selectedIndex}
       selected={index === this.state.selectedIndex}
       onClick={event => this.handleMenuItemClick(event, index)}
     >

@@ -34,7 +34,6 @@ exports.findById = function(req,res){
 exports.findBySlug = function(req,res){
 	User.findOne({slug:req.params.slug},function(err, user){
 		if(err) return res.send(500, err.message);
-		console.log('GET /user/'+req.params.slug);
 		res.status(200).jsonp(user);
 	});
 }
@@ -42,7 +41,6 @@ exports.findBySlug = function(req,res){
 exports.findAllUsersByName = function(req,res){
 	User.find({fullname:{ $regex : new RegExp(req.params.name, "i") },active:true},function(err, user){
 		if(err) return res.send(500, err.message);
-		console.log('GET /user/'+req.params.name);
 		res.status(200).jsonp(user);
 	});
 }
@@ -50,7 +48,6 @@ exports.findAllUsersByName = function(req,res){
 exports.findAllUsersByNickname = function(req,res){
 	User.find({nickname:{ $regex : new RegExp(req.params.nickname, "i") },active:true},function(err, user){
 		if(err) return res.send(500, err.message);
-		console.log('GET /user/'+req.params.name);
 		res.status(200).jsonp(user);
 	});
 }
@@ -58,7 +55,6 @@ exports.findAllUsersByNickname = function(req,res){
 exports.findByInstrument = function(req,res){
 	User.find({instruments:req.params.instrument},function(err, user){
 		if(err) return res.send(500, err.message);
-		console.log('GET /users/'+req.params.instrument);
 		res.status(200).jsonp(user);
 	});
 }
@@ -170,10 +166,8 @@ exports.login = function(req,res){
 }
 
 exports.loginFacebook = function(req,res){
-	console.log(req.body);
 	User.findOne({'email': req.body.email, 'fbId':req.body.fbId,'active': true}, function(err, user){
 		if(err) return res.status(500).send(err.message);
-		console.log(user);
 		if(user !== null){
 			authed[user._id] = user;
 			user.status = 'logged';

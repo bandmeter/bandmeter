@@ -12,6 +12,7 @@ import logo from './images/logo.png';
 import './Access.css';
 
 import HomeMenu from '../../components/access/home-menu';
+import SocialLogin from '../../components/access/social-login';
 
 const leavingSpringConfig = {stiffness: 60, damping: 15};
 
@@ -89,7 +90,6 @@ class Access extends Component {
 
         axios.post(`${config.apiBaseUrl}/user/login-fb`, user)
              .then(res =>{
-                 console.log(res);
                  if(res.data === 'ko'){
                     this.setState({message: "Esta cuenta de Facebook no está registrada en el sistema. ¿Quieres registrarte con ella?", type: "fb-register"});
                     //Esto es para el registro
@@ -102,7 +102,7 @@ class Access extends Component {
                         }
                     });
                  }else{
-                     sessionStorage.setItem('user-data', JSON.stringify(res.data));
+                    sessionStorage.setItem('user-data', JSON.stringify(res.data));
                     this.setState({isLogged: true});
                  }
              })
@@ -196,6 +196,8 @@ class Access extends Component {
                                 <button className="btn btn-facebook"><i className="fab fa-facebook-square"></i><span>Acceder via Facebook</span></button>
                             </Login>
                         </FacebookProvider> 
+
+                        <SocialLogin />
                     </div>   
                     </FadeIn> 
                 </section>
