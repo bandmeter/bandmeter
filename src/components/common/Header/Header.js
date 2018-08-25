@@ -5,18 +5,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import  { Redirect } from 'react-router';
 
 import './Header.css';
 import logo from './images/logo.png';
-
-const drawerWidth = 240;
 
 const styles = {
   root: {
@@ -30,6 +24,7 @@ const styles = {
     marginRight: 20,
   },
 };
+
 
 class Header extends React.Component {
   state = {
@@ -57,38 +52,35 @@ class Header extends React.Component {
   };
 
   handleClose = (link) => {
-    this.setState({ anchorEl: null, redirect: link });
+    this.setState({ anchorEl: null });
+    if(link){
+      this.setState({redirect: true, link: link});
+    }
   };
 
-  //Handle Drawer
-  handleDrawer = () => {
-    this.setState({ open: !this.state.open });
-    this.props.onChange(this.state.open);
-  };
-
-  handeSearch = (event) =>{
+  handleSearch = (event) =>{
     this.setState({search: event.target.value});
   }
 
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.link} />
+    }
+  }
   render() {
     const { classes } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
-    if(this.state.redirect){
-      alert(this.state.redirect);
-      return(
-        <Redirect to={this.state.redirect} />
-      )
-    }
+
     return (
       <div className={classes.root}>
+      {this.renderRedirect()}
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.handleDrawer}>
-              <MenuIcon />
-            </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>
+              <a href="/">
               <img className="header-logo" src={logo} alt="Bandmeter" />
+              </a>
             </Typography>
             <input className="searchInput" placeholder="Buscar" type="text" onChange={this.handleSearch} />
             {auth && (

@@ -11,8 +11,10 @@ import axios from 'axios';
 import logo from './images/logo.png';
 import './Access.css';
 
-import HomeMenu from '../../components/access/home-menu';
 import SocialLogin from '../../components/access/social-login';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const leavingSpringConfig = {stiffness: 60, damping: 15};
 
@@ -23,7 +25,8 @@ class Access extends Component {
         isConnected : false,
         fbid : 0,
         mouse: [], 
-        now: 't' + 0
+        now: 't' + 0,
+        checkedLegals: false
     };
 
     constructor(props){
@@ -145,6 +148,9 @@ class Access extends Component {
     legalsAccepted = () =>{
         this.setState({message:undefined});
     }
+    handleLegals = () => {
+        this.setState({checkedLegals: !this.state.checkedLegals});
+    }
     render(){
         const {mouse: [mouseX, mouseY], now} = this.state;
         const styles = mouseX == null ? [] : [{
@@ -187,17 +193,27 @@ class Access extends Component {
                         <img className="logo" src={logo} alt="Bandmeter.com" />
   
                     <div className="accessArea">
+                        <FormGroup row>
+                            <FormControlLabel
+                            control={
+                                <Checkbox
+                                checked={this.state.checkedLegals}
+                                onChange={this.handleLegals}
+                                value="legals"
+                                />
+                            }
+                            label="Acepto las codiciones legales."
+                            />
+                        </FormGroup>
                         <FacebookProvider appId={config.fbAppId}>
                             <Login
                                 scope="email"
                                 onResponse={this.handleResponse}
                                 onError={this.handleError}
                             >
-                                <button className="btn btn-facebook"><i className="fab fa-facebook-square"></i><span>Acceder via Facebook</span></button>
+                                <button disabled={!this.state.checkedLegals} className="btn btn-facebook"><i className="fab fa-facebook-square"></i><span>Acceder via Facebook</span></button>
                             </Login>
                         </FacebookProvider> 
-
-                        <SocialLogin />
                     </div>   
                     </FadeIn> 
                 </section>

@@ -8,7 +8,6 @@ import User from '../../components/home/User';
 import './Bands.css';
 
 import Header from '../../components/common/Header/Header';
-import SideMenu from '../../components/common/SideMenu/side-menu';
 import Footer from '../../components/common/Footer/footer';
 import Content from '../../components/bands/Content';
 
@@ -44,7 +43,6 @@ class Bands extends Component {
         return (
             <section className="home">
                 <Header onChange={this.handleSideMenu} />
-                <SideMenuBands open={this.state.sideMenuOpen} />
                 <Content user={this.userData} />
                 <Footer />
             </section>

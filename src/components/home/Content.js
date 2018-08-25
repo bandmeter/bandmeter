@@ -8,6 +8,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Icon from '@material-ui/core/Icon';
+import { Redirect } from 'react-router';
 
 let notifications = void 0;
 
@@ -17,9 +20,19 @@ const styles = theme => ({
       paddingTop: theme.spacing.unit * 2,
       paddingBottom: theme.spacing.unit * 2,
     },
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+        display: 'none',
+    },
   });
 
 class Content extends Component {
+
+    state = {
+        redirect: false
+    };
 
     constructor(props){
         super(props);
@@ -34,11 +47,22 @@ class Content extends Component {
 
     }
 
+    createNewBand = () =>{
+        this.setState({redirect: true, link: "/bands/new"});
+    }
+    
+    renderRedirect = () => {
+        if(this.state.redirect){
+            return <Redirect to={this.state.link} />;
+        }
+    }
+
     render(){
         const { classes } = this.props;
 
         return(
             <div className="homeContent"> 
+                {this.renderRedirect()}
                 <Paper className={classes.root} elevation={1}>
                     <Typography variant="headline" component="h3">
                         Tus notificaciones.
@@ -53,6 +77,11 @@ class Content extends Component {
                 <Paper className={classes.root} elevation={1}>
                     <Typography variant="headline" component="h3">
                         Tus bandas.
+                        <IconButton className={classes.button} onClick={this.createNewBand}>
+                            <Icon className={classes.iconHover} color="disabled" style={{ fontSize: 30 }}>
+                                add_circle
+                            </Icon>
+                        </IconButton>
                     </Typography>
                     <Divider />
                     {this.props.user.bands.length > 0 ? notifications :

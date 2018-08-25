@@ -44,7 +44,8 @@ exports.addBand = function(req,res){
 			logo: req.body.logo,
 			imageBand: req.body.imageBand,
 			musicStyle: req.body.musicStyle,
-			members: req.body.members
+			members: req.body.members,
+			administrators: req.body.administrators
 		});
 		band.save(function(err,band){
 			if(err) return res.send(500, err.message);
