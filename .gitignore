@@ -4,6 +4,8 @@
 /node_modules
 /rest-api/node_modules
 /apinode/node_modules
+/bandmeter-next/node_modules
+/bandmeter-next/.next
 
 # testing
 /coverage
