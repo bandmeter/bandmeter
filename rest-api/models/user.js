@@ -18,6 +18,7 @@ var UserSchema = new Schema({
 	image:{type:String},
 	backgroundImage:{type:String},
 	instruments: [{instrument:{type: Schema.Types.ObjectId, ref:'Instrument'}}],
+	notifications: [{notification:{type: Schema.Types.ObjectId, ref:'Notification'}}],
 	bands: [{band:{type: Schema.Types.ObjectId, ref: 'Band'}}],
 	friends: [{friend:{type: Schema.Types.ObjectId, ref: 'User'}}],
 	createdAt: {type: Date, default: Date.now},

@@ -34,7 +34,7 @@ class Index extends Component{
             )
         }else{
             return(
-                <Home user={this.userData} />
+                <Home user={this.state.userData} />
             )
         }
     }

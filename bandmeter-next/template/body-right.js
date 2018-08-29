@@ -5,11 +5,10 @@ import config from '../config.json';
 import Router from 'next/router';
 
 class BodyRight extends Component{
-    handleSocialLogin = (res) => {
-        console.log(res._profile);
+    handleSocialLogin = (response) => {
         let user = {
-            fbId: res._profile.id,
-            email: res._profile.email
+            fbId: response._profile.id,
+            email: response._profile.email
         };
 
         axios.post(`${config.apiBaseUrl}/user/login-fb`, user)
@@ -27,7 +26,7 @@ class BodyRight extends Component{
                     });
                  }else{
                     sessionStorage.setItem('user-data', JSON.stringify(res.data));
-                    Router.push('/');
+                    Router.push('index');
                  }
              })
       }
@@ -47,30 +46,6 @@ class BodyRight extends Component{
                     onLoginFailure={this.handleSocialLoginFailure}
                 >
                     Login with Facebook
-                </SocialButton>
-                <SocialButton
-                    provider='google'
-                    appId='bandmeter-1039'
-                    onLoginSuccess={this.handleSocialLogin}
-                    onLoginFailure={this.handleSocialLoginFailure}
-                >
-                    Login with Google
-                </SocialButton>
-                <SocialButton
-                    provider='instagram'
-                    appId='6db90c4b9cda4313b8c55be4799b1dfd'
-                    onLoginSuccess={this.handleSocialLogin}
-                    onLoginFailure={this.handleSocialLoginFailure}
-                >
-                    Login with Instagram
-                </SocialButton>
-                <SocialButton
-                    provider='linkedin'
-                    appId='7700jpk1ubefgp'
-                    onLoginSuccess={this.handleSocialLogin}
-                    onLoginFailure={this.handleSocialLoginFailure}
-                >
-                    Login with Linkedin
                 </SocialButton>
             <style jsx>{`
                 .bodyRight{
@@ -92,3 +67,29 @@ class BodyRight extends Component{
 }
 
 export default BodyRight;
+
+/*
+<SocialButton
+    provider='instagram'
+    appId='6db90c4b9cda4313b8c55be4799b1dfd'
+    onLoginSuccess={this.handleSocialLogin}
+    onLoginFailure={this.handleSocialLoginFailure}>
+        Login with Instagram
+</SocialButton>
+<SocialButton
+                    provider='google'
+                    appId='bandmeter-1039'
+                    onLoginSuccess={this.handleSocialLogin}
+                    onLoginFailure={this.handleSocialLoginFailure}
+                >
+                    Login with Google
+                </SocialButton>
+                <SocialButton
+                    provider='linkedin'
+                    appId='7700jpk1ubefgp'
+                    onLoginSuccess={this.handleSocialLogin}
+                    onLoginFailure={this.handleSocialLoginFailure}
+                >
+                    Login with Linkedin
+                </SocialButton>
+*/

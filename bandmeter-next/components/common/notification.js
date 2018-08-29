@@ -10,9 +10,7 @@ class Notification extends Component{
                 <p>{notification.message}</p>
                 <style jsx>{`
                     .notification{
-                        width:100%;
-                        padding:2rem 3rem;
-                        background: #fff;
+                        list-style:none;
                     }
                 `}</style>
             </li>

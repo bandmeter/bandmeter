@@ -17,10 +17,19 @@ class Notifications extends Component{
                 </ul>
                 <style jsx>{`
                     .container{
-                        width:100%;
+                        width:80%;
+                        max-width:768px;
                         border-radius:10px;
                         border: 1px solid #aaa;
-                        margin:3rem;
+                        margin:5% auto;
+                        background:#999;
+                    }
+                    h3{
+                        margin:0;
+                        background: #ccc;
+                        padding:5px 10px;
+                        border-bottom:1px solid #000;
+                        border-radius:10px 10px 0 0;
                     }
                 `}</style>
             </div>

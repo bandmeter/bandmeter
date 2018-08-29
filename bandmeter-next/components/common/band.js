@@ -4,6 +4,8 @@ class Band extends Component{
     render(){
         const { band } = this.props;
 
+        console.log(band);
+
         return(
             <li className="band">
                 <h4>{band.name}</h4>

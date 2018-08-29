@@ -22,8 +22,6 @@ class LoginForm extends Component{
             password: password
         }
 
-        alert("Voy a llamar");
-
         axios.post('http://localhost:3600/api/user/login', payload).then((response)=>{
             console.log(response);
         });
