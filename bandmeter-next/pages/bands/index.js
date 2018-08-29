@@ -1,48 +1,33 @@
 import React, { Component } from 'react';
-import Home from './home';
-import Access from './access';
-import 'isomorphic-fetch';
-import config from '../config.json';
-import axios from 'axios';
+import Layout from '../../template/layout';
 
-class Index extends Component{
-
+class index extends Component{
     state = {
         userData: undefined
     }
-
     componentDidMount(){
         this.setState({userData : JSON.parse(sessionStorage.getItem('user-data'))});
-
         if(this.state.userData){
             let payload ={
                 userid : this.state.userData._id
             }
             axios.post(`${config.apiBaseUrl}/islogged`, payload).then((response)=>{
-                console.log(response);
                 if(response.data === 'ko'){
                     this.setState({userData : undefined});
                     sessionStorage.setItem('user-data', undefined);
                 }else{
                     sessionStorage.setItem('user-data', response);
-                    this.setState({userData: JSON.stringify(response)});
+                    this.setState({userData: response});
                 }
             });
         }
     }
-
-
     render(){
-        if(!this.state.userData){
-            return(
-                <Access />
-            )
-        }else{
-            return(
-                <Home user={this.state.userData} />
-            )
-        }
+        return(
+            <Layout user={this.state.userData}>
+            </Layout>
+        )
     }
 }
 
-export default Index;
+export default index;

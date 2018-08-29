@@ -5,6 +5,20 @@ import config from '../config.json';
 import Router from 'next/router';
 
 class BodyRight extends Component{
+    toDataUrl = (url, callback) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = () => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                callback(reader.result);
+            };
+            reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url);
+        xhr.responseType = 'blob';
+        xhr.send();
+    };
+
     handleSocialLogin = (response) => {
         let user = {
             fbId: response._profile.id,
@@ -14,23 +28,33 @@ class BodyRight extends Component{
         axios.post(`${config.apiBaseUrl}/user/login-fb`, user)
              .then(res =>{
                  if(res.data === 'ko'){
-                    this.setState({message: "Esta cuenta de Facebook no está registrada en el sistema. ¿Quieres registrarte con ella?", type: "fb-register"});
                     //Esto es para el registro
-                    this.toDataUrl(`https://graph.facebook.com/v3.1/${response.profile.id}/picture?access_token=${response.tokenDetail.accessToken}`, (myBase64) => {
+                    this.toDataUrl(`https://graph.facebook.com/v3.1/${response._profile.id}/picture?access_token=${response._token.accessToken}`, (myBase64) => {
                         this.user = {
                             fullname: response.profile.name,
                             email: response.profile.email,
                             image: myBase64,
                             fbId: response.profile.id
                         }
+                        this.registerWithFacebook();
                     });
                  }else{
                     sessionStorage.setItem('user-data', JSON.stringify(res.data));
-                    Router.push('index');
+                    Router.reload('/');
                  }
              })
-      }
-      
+    }
+
+    registerWithFacebook = () =>{
+        axios.post(`${config.apiBaseUrl}/user/register-fb`, this.user)
+             .then(res =>{
+                 if(res.status === 200){
+                    sessionStorage.setItem('user-data',JSON.stringify(res.data));
+                    Router.reload('/');
+                 }
+             });
+    }
+
     handleSocialLoginFailure = (err) => {
         console.error(err)
     }
