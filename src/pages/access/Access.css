@@ -17,6 +17,12 @@ section.login{
     width:100%; 
 }
 
+form{
+    width:92%;
+    display:flex;
+    margin: 0 auto 20px;
+}
+
 .btn-facebook{
     background:rgb(66, 103, 178);
     color:#fff;

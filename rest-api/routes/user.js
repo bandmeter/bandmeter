@@ -21,32 +21,31 @@ user.route('/user/register-fb')
 	.post(UserCtrl.addUserFacebook);
 
 user.route('/user/logout')
-	.post(UserCtrl.logout);
+	.post(md_auth.ensureAuth, UserCtrl.logout);
 
 user.route('/users')
-	.get(UserCtrl.findAllUsers)
-	.post(UserCtrl.addUser);
+	.get(md_auth.ensureAuth, UserCtrl.findAllUsers);
 
 user.route('/usersonline')
-	.get(UserCtrl.findUsersOnline);
+	.get(md_auth.ensureAuth,UserCtrl.findUsersOnline);
 
-user.route('/search/:nickname')
-	.get(UserCtrl.findAllUsersByNickname)
+/*user.route('/search/:nickname')
+	.get(md_auth.ensureAuth,UserCtrl.findAllUsersByNickname)*/
 
 user.route('/user/:id')
-	.get(UserCtrl.findById)
-	.post(UserCtrl.updateUser)
-	.delete(UserCtrl.deleteUser);
+	.get(md_auth.ensureAuth,UserCtrl.findById)
+	.post(md_auth.ensureAuth,UserCtrl.updateUser)
+	.delete(md_auth.ensureAuth,UserCtrl.deleteUser);
 
 user.route('/friend/:id')
-	.post(UserCtrl.addFriend)
-    .delete(UserCtrl.deleteFriend);
+	.post(md_auth.ensureAuth,UserCtrl.addFriend)
+    .delete(md_auth.ensureAuth,UserCtrl.deleteFriend);
     
 user.route('/profile/:slug')
-.get(UserCtrl.findBySlug);
+.get(md_auth.ensureAuth,UserCtrl.findBySlug);
 
 user.route('/islogged')
-.post(UserCtrl.islogged);
+.post(md_auth.ensureAuth,UserCtrl.islogged);
 
 user.route('/activate/:token')
 .post(UserCtrl.activate);

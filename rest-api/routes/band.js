@@ -2,21 +2,23 @@
 var express = require('express');
 var BandCtrl = require('../controllers/band');
 
+var md_auth = require('../middlewares/authenticated');
+
 var band = express.Router();
 
 band.route('/bands')
-	.get(BandCtrl.findAllBands)
-	.post(BandCtrl.addBand);
+	.get(md_auth.ensureAuth,BandCtrl.findAllBands)
+	.post(md_auth.ensureAuth,BandCtrl.addBand);
 
 band.route('/band/:id')
-	.get(BandCtrl.findById)
-	.put(BandCtrl.updateBand)
-	.delete(BandCtrl.deleteBand);
+	.get(md_auth.ensureAuth,BandCtrl.findById)
+	.put(md_auth.ensureAuth,BandCtrl.updateBand)
+	.delete(md_auth.ensureAuth,BandCtrl.deleteBand);
 
 band.route('/band/:slug')
-	.get(BandCtrl.findBySlug);
+	.get(md_auth.ensureAuth,BandCtrl.findBySlug);
 
 band.route('/searchband/:name')
-    .get(BandCtrl.findByName);
+    .get(md_auth.ensureAuth,BandCtrl.findByName);
     
 module.exports = band;

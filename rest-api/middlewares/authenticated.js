@@ -2,7 +2,7 @@
 
 var jwt = require('jwt-simple');
 var moment = require('moment');
-var secret = 'clave_secreta_';
+var secret = 'B4ndm3t3r';
 
 exports.ensureAuth = function(req, res, next){
     if(!req.header.authorization){

@@ -1,5 +1,5 @@
-import config from 'config';
-import { authHeader } from '../_helpers';
+import config from '../config.json';
+import { authHeader } from '../helpers';
 
 export const userService = {
     login,
@@ -18,7 +18,7 @@ function login(user) {
         body: JSON.stringify({  })
     };
 
-    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
+    return fetch(`${config.apiBaseUrl}/user/login-fb`, requestOptions)
         .then(handleResponse)
         .then(user => {
             // login successful if there's a jwt token in the response
@@ -26,7 +26,6 @@ function login(user) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
             }
-
             return user;
         });
 }
@@ -91,7 +90,7 @@ function handleResponse(response) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
                 logout();
-                location.reload(true);
+                window.location.reload(true);
             }
 
             const error = (data && data.message) || response.statusText;

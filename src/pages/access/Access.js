@@ -6,29 +6,11 @@ import FadeIn from 'react-fade-in';
 import { Redirect } from 'react-router';
 
 import ModalWindow from '../../components/common/ModalWindow/ModalWindow';
-import axios from 'axios';
-
+import { userService } from '../../services';
 import logo from './images/logo.png';
 import './Access.css';
 
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-
 const leavingSpringConfig = {stiffness: 60, damping: 15};
-
-let initialState = {
-    data: {}
-}
-
-const store = createStore(
-    (state) => state,
-    initialState,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-)
 
 class Access extends Component {
 
@@ -102,8 +84,10 @@ class Access extends Component {
             fbId: response.profile.id,
             email: response.profile.email
         };
-
-        axios.post(`${config.apiBaseUrl}/user/login-fb`, user)
+        userService.login(user).then((response)=>{
+            console.log(response);
+        });
+        /*axios.post(`${config.apiBaseUrl}/user/login-fb`, user)
              .then(res =>{
                  if(res.data === 'ko'){
                     this.setState({message: "Esta cuenta de Facebook no está registrada en el sistema. ¿Quieres registrarte con ella?", type: "fb-register"});
@@ -120,17 +104,18 @@ class Access extends Component {
                     localStorage.setItem('user', JSON.stringify(res.data));
                     this.setState({isLogged: true});
                  }
-             })
+             })*/
 
     }
     registerWithFacebook = () =>{
-        axios.post(`${config.apiBaseUrl}/user/register-fb`, this.user)
+        userService.register(this.user);
+        /*axios.post(`${config.apiBaseUrl}/user/register-fb`, this.user)
              .then(res =>{
                  if(res.status === 200){
                     this.initialState.data = res.data;
                     this.setState({isLogged: true});
                  }
-             });
+             });*/
     }
     toDataUrl = (url, callback) => {
         const xhr = new XMLHttpRequest();
@@ -175,10 +160,9 @@ class Access extends Component {
         }];
         if(this.state.isLogged){
             return(
-                <Provider store={store}>
-                    <Redirect to="/" />     
-                </Provider>);
-        }
+                <Redirect to="/" />
+            );
+            }
         return(
             <div>
                 <TransitionMotion willLeave={this.willLeave} styles={styles}>

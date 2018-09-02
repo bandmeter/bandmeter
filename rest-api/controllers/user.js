@@ -2,6 +2,10 @@ var User = require('../models/user');
 var authed = [];
 var emailjs = require('emailjs');
 
+var jwt = require('jwt-simple');
+var moment = require('moment');
+var secret = 'B4ndm3t3r';
+
 exports.activate = function(req,res){
 	User.findOne({token:req.params.token}, function(err,user){
 		if(err) res.send(500, err.message);
@@ -113,7 +117,7 @@ exports.addUser = function(req,res){
 }
 
 exports.addUserFacebook = function(req,res){
-	var slug = req.body.fullname.toLowerCase().replace(' ','-').replace('á','a').replace('é','e').replace('í','i').replace('ó','o').replace('ú','u').replace('ñ','gn');
+	//var slug = req.body.fullname.toLowerCase().replace(' ','-').replace('á','a').replace('é','e').replace('í','i').replace('ó','o').replace('ú','u').replace('ñ','gn');
 
 	var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -121,14 +125,16 @@ exports.addUserFacebook = function(req,res){
     for( var i=0; i < 15; i++ )
         text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-	var token = text;
+	for( var i=0; i < 15; i++ )
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
+	var token = jwt.encode(text, secret);
+
 	var user = new User({
 		fullname: req.body.fullname,
-		slug: slug,
-		token: token,
 		email: req.body.email,
 		image: req.body.image,
 		fbId: req.body.fbId,
+		token: token,
 		active:true,
 	});
 	user.save(function(err,user){
@@ -171,12 +177,16 @@ exports.loginFacebook = function(req,res){
 		if(user !== null){
 			authed[user._id] = user;
 			user.status = 'logged';
+			for( var i=0; i < 15; i++ )
+				text += possible.charAt(Math.floor(Math.random() * possible.length));
+			var token = jwt.encode(text, secret);
+			user.token = token;
 			user.save(function(err){
 				if(err) return res.send(500, err.message);
 				res.status(200).jsonp(user);
 			});
 		}else{
-			res.status(200).send('ko');
+			res.status(401).send('ko');
 		}
 
 	});
