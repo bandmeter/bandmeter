@@ -117,7 +117,7 @@ class Access extends Component {
                         }
                     });
                  }else{
-                    localStorage.setItem('user', JSON.stringify(res.data));
+                    this.initialState.data = res.data;
                     this.setState({isLogged: true});
                  }
              })
@@ -207,11 +207,18 @@ class Access extends Component {
                         <img className="logo" src={logo} alt="Bandmeter.com" />
   
                     <div className="accessArea">
-                        <form>
-                            <label>
-                                <input type="checkbox" onClick={this.handleLegals} /> He leido y acepto las condiciones legales
-                            </label>
-                        </form>
+                        <FormGroup row>
+                            <FormControlLabel
+                            control={
+                                <Checkbox
+                                checked={this.state.checkedLegals}
+                                onChange={this.handleLegals}
+                                value="legals"
+                                />
+                            }
+                            label="Acepto las codiciones legales."
+                            />
+                        </FormGroup>
                         <FacebookProvider appId={config.fbAppId}>
                             <Login
                                 scope="email"
@@ -224,14 +231,6 @@ class Access extends Component {
                     </div>   
                     </FadeIn> 
                 </section>
-                <style jsx>{`
-                    label{
-                        width:92%;
-                        display:block;
-                        margin:0 auto 20px;
-                        color:#fff;
-                    }
-                `}</style>
             </div>
         )
     }

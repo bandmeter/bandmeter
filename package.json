@@ -11,6 +11,7 @@
     "material-ui-icons": "^1.0.0-beta.36",
     "material-ui-search-bar": "^0.4.2",
     "mobx-react-form": "^1.35.1",
+    "prop-types": "^15.6.2",
     "re-resizable": "^4.7.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -22,12 +23,14 @@
     "react-mic": "^11.0.0",
     "react-motion": "^0.5.2",
     "react-pose": "^2.2.0",
+    "react-redux": "^5.0.7",
     "react-resizable": "^1.7.5",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "react-social-login": "^3.4.2",
     "react-social-login-buttons": "^2.1.2",
+    "redux": "^4.0.0",
     "socket.io-client": "^2.1.1"
   },
   "scripts": {

@@ -1,0 +1,28 @@
+.menu-home{
+    padding:0;
+}
+
+.menu-home li{
+    list-style: none;
+    border-left:1px solid #fff;
+    float:left;
+    width:50%;
+    text-align: center;
+}
+.menu-home li:first-of-type{
+    border-left:none;
+}
+.menu-home li a{
+    color:#fff;
+    padding:1rem;
+    font-size:1rem;
+}
+
+.menu-home li a:hover{
+    opacity:0.5;
+    text-decoration: none;
+}
+.clr{
+    clear: both;
+    float:none!important;
+}

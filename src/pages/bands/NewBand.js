@@ -1,26 +1,20 @@
 import React, { Component } from 'react';
-import config from '../../config.json';
 
-import { Redirect } from 'react-router' 
-import axios from 'axios';
-
-import Header from '../../components/common/Header/Header';
-import Footer from '../../components/common/Footer/footer';
 import Content from '../../components/bands/NewContent';
+import Layout from '../../template/layout';
 
 class NewBand extends Component{
 
     constructor(){
         super();
-        this.userData = JSON.parse(sessionStorage.getItem('user-data'));
+        this.userData = JSON.parse(localStorage.getItem('user'));
     }
+    
     render(){
         return(
-            <section className="home">
-                <Header onChange={this.handleSideMenu} />
+            <Layout>
                 <Content user={this.userData} />
-                <Footer />
-            </section>
+            </Layout>
         )
     }
 }

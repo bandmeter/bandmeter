@@ -58,9 +58,7 @@ class Content extends Component {
     }
 
     render(){
-        const { classes, user } = this.props;
-
-        console.log(user);
+        const { classes } = this.props;
 
         return(
             <div className="homeContent"> 
@@ -86,7 +84,7 @@ class Content extends Component {
                         </IconButton>
                     </Typography>
                     <Divider />
-                    {user.bands.length > 0 ? notifications :
+                    {this.props.user.bands.length > 0 ? notifications :
                     <Typography component="p">
                         Aún no tienes niguna banda.
                     </Typography> }

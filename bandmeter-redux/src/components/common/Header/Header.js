@@ -34,6 +34,15 @@ class Header extends React.Component {
     redirect: undefined
   };
 
+  constructor(props){
+      super(props);
+      this.userData = JSON.parse(sessionStorage.getItem('user-data'));
+  }
+
+  componentDidMount(){
+      this.setState({userData: this.userData});
+  }
+
   handleChange = (event, checked) => {
     this.setState({ auth: checked });
   };
@@ -59,7 +68,7 @@ class Header extends React.Component {
     }
   }
   render() {
-    const { classes, user } = this.props;
+    const { classes } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
@@ -82,7 +91,7 @@ class Header extends React.Component {
                   onClick={this.handleMenu}
                   color="inherit"
                 >
-                <img src={user.image} alt={user.fullname} />
+                <img src={this.userData.image} alt={this.userData.fullname} />
                 </IconButton>
                 <Menu
                   id="menu-appbar"
