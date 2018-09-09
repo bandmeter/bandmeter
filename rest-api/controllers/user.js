@@ -22,7 +22,7 @@ exports.activate = function(req,res){
 }
 
 exports.findAllUsers = function(req,res){
-	User.find(function(err,users){
+	User.find({active:true}, function(err,users){
 		if(err) res.send(500, err.message);
 		res.status(200).jsonp(users);
 	});

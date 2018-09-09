@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import config from '../../config.json';
-
-import { Redirect } from 'react-router' 
-import axios from 'axios';
 
 import './home.css';
 

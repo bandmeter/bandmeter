@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import UserCard from '../../common/UserCard';
 
-class UsersList extends Component{
+class CollaboratorsList extends Component{
+
+    constructor(props){
+        super(props);
+        this.users = [];
+    }
 
     render(){
-        const { users } = this.props;
         
         return(
             <div className="UsersList">
-                <h4>Usuarios de Bandmeter</h4>
+                <h4>Colaboradores</h4>
                 <ul className="users">
-                {users.map((user)=>{
-                   return <UserCard user={user} />
+                {this.users.map((user)=>{
+                    <UserCard user={user} />
                 })}
                 </ul>
             </div>
@@ -19,4 +23,4 @@ class UsersList extends Component{
     }
 }
 
-export default UsersList;
+export default CollaboratorsList;
