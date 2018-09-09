@@ -18,7 +18,7 @@ class Home extends Component {
 
     render(){
         return (
-            <Layout>
+            <Layout className="home" user={this.userData}>
                 <Content user={this.userData} />
             </Layout>
         )

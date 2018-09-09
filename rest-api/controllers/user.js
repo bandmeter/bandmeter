@@ -122,9 +122,6 @@ exports.addUserFacebook = function(req,res){
 	var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    for( var i=0; i < 15; i++ )
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
 	for( var i=0; i < 15; i++ )
 		text += possible.charAt(Math.floor(Math.random() * possible.length));
 	var token = jwt.encode(text, secret);
@@ -177,6 +174,8 @@ exports.loginFacebook = function(req,res){
 		if(user !== null){
 			authed[user._id] = user;
 			user.status = 'logged';
+			var text = "";
+			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 			for( var i=0; i < 15; i++ )
 				text += possible.charAt(Math.floor(Math.random() * possible.length));
 			var token = jwt.encode(text, secret);

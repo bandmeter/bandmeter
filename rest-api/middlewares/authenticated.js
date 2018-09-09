@@ -5,12 +5,13 @@ var moment = require('moment');
 var secret = 'B4ndm3t3r';
 
 exports.ensureAuth = function(req, res, next){
-    if(!req.header.authorization){
+    console.log("La llamada: ", req);
+    if(!req.headers.authorization){
         res.status(403).send({
             message: "No tienes permisos para hacer esta llamada"
         });
     }else{
-        var token = req.headers.authorization.replace(/['"]+/g, '');
+        var token = req.headers.authorization.replace(/['"]+/g, '').replace("Bearer ", "");
         try{
             var payload = jwt.decode(token, secret);
             if(payload.exp > moment.unix()){

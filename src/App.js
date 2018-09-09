@@ -13,15 +13,15 @@ class App extends Component {
     return(
     <Switch>
       <PrivateRoute exact path='/' component={Home}/>
-      <Route exact path='/profile' component={Access}/>
-      <Route exact path='/account' component={Access}/>
-      <Route exact path='/sign-out' component={Access}/>
+      <PrivateRoute exact path='/profile' component={Access}/>
+      <PrivateRoute exact path='/account' component={Access}/>
+      <PrivateRoute exact path='/sign-out' component={Access}/>
 
       <Route exact path='/access' component={Access}/>
-      <Route exact path='/jamrooms' component={Jamrooms}/>
-      <Route exact path='/bands' component={Bands}/>
-      <Route exact path='/bands/new' component={NewBand} />
-      <Route exact path='/bands/:id/edit' component={NewBand} />
+      <PrivateRoute exact path='/jamrooms' component={Jamrooms}/>
+      <PrivateRoute exact path='/bands' component={Bands}/>
+      <PrivateRoute exact path='/bands/new' component={NewBand} />
+      <PrivateRoute exact path='/bands/:id/edit' component={NewBand} />
     </Switch>
     );
   }

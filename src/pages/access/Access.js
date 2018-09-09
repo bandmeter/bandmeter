@@ -85,37 +85,14 @@ class Access extends Component {
             email: response.profile.email
         };
         userService.login(user).then((response)=>{
-            console.log(response);
+            if(response !== 'ko'){
+                this.setState({isLogged: true});
+            }
         });
-        /*axios.post(`${config.apiBaseUrl}/user/login-fb`, user)
-             .then(res =>{
-                 if(res.data === 'ko'){
-                    this.setState({message: "Esta cuenta de Facebook no está registrada en el sistema. ¿Quieres registrarte con ella?", type: "fb-register"});
-                    //Esto es para el registro
-                    this.toDataUrl(`https://graph.facebook.com/v3.1/${response.profile.id}/picture?access_token=${response.tokenDetail.accessToken}`, (myBase64) => {
-                        this.user = {
-                            fullname: response.profile.name,
-                            email: response.profile.email,
-                            image: myBase64,
-                            fbId: response.profile.id
-                        }
-                    });
-                 }else{
-                    localStorage.setItem('user', JSON.stringify(res.data));
-                    this.setState({isLogged: true});
-                 }
-             })*/
-
     }
     registerWithFacebook = () =>{
-        userService.register(this.user);
-        /*axios.post(`${config.apiBaseUrl}/user/register-fb`, this.user)
-             .then(res =>{
-                 if(res.status === 200){
-                    this.initialState.data = res.data;
-                    this.setState({isLogged: true});
-                 }
-             });*/
+        const user = userService.register(this.user);
+        console.log(user);
     }
     toDataUrl = (url, callback) => {
         const xhr = new XMLHttpRequest();

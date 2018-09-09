@@ -6,14 +6,13 @@ class Layout extends Component {
 
     constructor(){
         super();
-        this.user = localStorage.getItem('user');
     }
 
     render(){
-        const { children } = this.props;
+        const { children, user } = this.props;
         return(
-            <section>
-                <Header user={this.user} />
+            <section className="home">
+                <Header user={user} />
                     { children }
                 <Footer />
             </section>

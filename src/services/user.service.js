@@ -15,7 +15,7 @@ function login(user) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({  })
+        body: JSON.stringify(user)
     };
 
     return fetch(`${config.apiBaseUrl}/user/login-fb`, requestOptions)
@@ -41,7 +41,7 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiBaseUrl}/users`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {
