@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import { Redirect } from 'react-router';
+import BandsList from './components/bands-list';
 
 let notifications = void 0;
 
@@ -40,7 +41,7 @@ class Content extends Component {
              .then(res =>{
                 if(res.data.length > 0){
                     notifications = res.data.map((notification)=>{
-
+                        return notification
                     });
                 }else{}
              });
@@ -59,8 +60,6 @@ class Content extends Component {
 
     render(){
         const { classes, user } = this.props;
-
-        console.log(user);
 
         return(
             <div className="homeContent"> 
@@ -86,7 +85,10 @@ class Content extends Component {
                         </IconButton>
                     </Typography>
                     <Divider />
-                    {user.bands.length > 0 ? notifications :
+                    <Typography>
+
+                    </Typography>
+                    {user.bands.length > 0 ? <BandsList bands={user.bands} /> :
                     <Typography component="p">
                         Aún no tienes niguna banda.
                     </Typography> }

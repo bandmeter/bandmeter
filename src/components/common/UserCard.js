@@ -14,28 +14,11 @@ const styles = {
   },
 };
 
-const cardSource = {
-    beginDrag(props) {
-      return {
-        text: props.text
-      };
-    }
-  };
-
-function collect(connect, monitor) {
-    return {
-      connectDragSource: connect.dragSource(),
-      isDragging: monitor.isDragging()
-    };
-}
-
 class UserCard extends Component{
 
     render(){
 
         const { classes, user } = this.props;
-
-        console.log(user);
 
         return(
                 <Card className={classes.card}>

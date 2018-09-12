@@ -9,13 +9,16 @@ class NewBandForm extends Component{
     }
     handleInput = name => (event) =>{
         this.setState({[name]: event.target.value});
-        this.props.onChange(name,event);
+        this.props.onChange(name,event.target.value);
     }
 
     handleFile = name => (event) =>{
         axios.get(URL.createObjectURL(event.target.files[0])).then((response)=>{
             this.setState({[name]: atob(response.data)});
         });
+    }
+    handleSubmit = () =>{
+        this.props.onSubmit();
     }
     render(){
         return(
@@ -29,13 +32,13 @@ class NewBandForm extends Component{
                     <p>Logo de la banda</p>
                     <button className="upload">Seleccionar imagen</button>
                     <input type="file" onChange={this.handleFile('logo')} />
-                    <img src={this.state.logo} />
+                    <img src={this.state.logo} alt="" />
                 </label>
                 <label className="imageUpload imageUploadLast">
                     <p>Imagen de la banda</p>
                     <button className="upload">Seleccionar imagen</button>
                     <input type="file" onChange={this.handleFile('picture')} />
-                    <img src={this.state.picture} />
+                    <img src={this.state.picture} alt="" />
                 </label>
                 <label>
                     <p>Biografía</p>

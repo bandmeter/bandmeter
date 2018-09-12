@@ -91,8 +91,7 @@ class Access extends Component {
         });
     }
     registerWithFacebook = () =>{
-        const user = userService.register(this.user);
-        console.log(user);
+        userService.register(this.user);
     }
     toDataUrl = (url, callback) => {
         const xhr = new XMLHttpRequest();

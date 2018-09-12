@@ -8,7 +8,6 @@ class MembersList extends Component{
     }
 
     render(){
-        const { canDrop, isOver, connectDropTarget } = this.props;
         return(
                 <div className="UsersList">
                     <h4>Miembros</h4>

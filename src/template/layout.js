@@ -4,10 +4,6 @@ import Footer from '../components/common/Footer/footer';
 
 class Layout extends Component {
 
-    constructor(){
-        super();
-    }
-
     render(){
         const { children, user } = this.props;
         return(

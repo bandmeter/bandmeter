@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import LegalsCheck from './legals-check';
 import './ModalWindow.css';
 
 class ModalWindow extends Component {
@@ -20,6 +19,8 @@ class ModalWindow extends Component {
                 break;
             case 'error':
                 this.data.title = 'Ha habido un error';
+                break;
+            default:
                 break;
         }
     }

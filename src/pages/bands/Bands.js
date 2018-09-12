@@ -4,7 +4,6 @@ import config from '../../config.json';
 import { Redirect } from 'react-router' 
 import axios from 'axios';
 
-import User from '../../components/home/User';
 import './Bands.css';
 
 import Header from '../../components/common/Header/Header';

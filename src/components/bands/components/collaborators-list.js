@@ -15,7 +15,7 @@ class CollaboratorsList extends Component{
                 <h4>Colaboradores</h4>
                 <ul className="users">
                 {this.users.map((user)=>{
-                    <UserCard user={user} />
+                    return <UserCard user={user} />
                 })}
                 </ul>
             </div>

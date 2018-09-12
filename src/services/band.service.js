@@ -14,7 +14,6 @@ function getAll() {
         method: 'GET',
         headers: authHeader()
     };
-
     return fetch(`${config.apiBaseUrl}/bands`, requestOptions).then(handleResponse);
 }
 
@@ -23,8 +22,7 @@ function getById(id) {
         method: 'GET',
         headers: authHeader()
     };
-
-    return fetch(`${config.apiUrl}/bands/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiBaseUrl}/band/${id}`, requestOptions).then(handleResponse);
 }
 
 function addBand(band) {
@@ -33,8 +31,7 @@ function addBand(band) {
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
         body: JSON.stringify(band)
     };
-
-    return fetch(`${config.apiUrl}/bands`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiBaseUrl}/bands`, requestOptions).then(handleResponse);
 }
 
 function update(band) {
@@ -43,8 +40,7 @@ function update(band) {
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
         body: JSON.stringify(band)
     };
-
-    return fetch(`${config.apiUrl}/bands/${band.id}`, requestOptions).then(handleResponse);;
+    return fetch(`${config.apiBaseUrl}/bands/${band.id}`, requestOptions).then(handleResponse);;
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -54,7 +50,7 @@ function _delete(id) {
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
     };
 
-    return fetch(`${config.apiUrl}/bands/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiBaseUrl}/bands/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
@@ -66,7 +62,6 @@ function handleResponse(response) {
                 logout();
                 window.location.reload(true);
             }
-
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);
         }

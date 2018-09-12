@@ -5,7 +5,6 @@ var moment = require('moment');
 var secret = 'B4ndm3t3r';
 
 exports.ensureAuth = function(req, res, next){
-    console.log("La llamada: ", req);
     if(!req.headers.authorization){
         res.status(403).send({
             message: "No tienes permisos para hacer esta llamada"

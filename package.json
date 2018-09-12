@@ -10,6 +10,7 @@
     "axios": "^0.18.0",
     "material-ui-icons": "^1.0.0-beta.36",
     "material-ui-search-bar": "^0.4.2",
+    "mobx-react": "^5.2.8",
     "mobx-react-form": "^1.35.1",
     "prop-types": "^15.6.2",
     "re-resizable": "^4.7.1",

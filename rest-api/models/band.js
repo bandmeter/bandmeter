@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
 var bandSchema = new Schema({
     name: {type:String, required:true, index: {unique:true}},
     musicStyle: {type:String},
-    logo:{type:String, required: true},
+    logo:{type:String},
     imageBand: {type:String},
     administrators: [{madministratorember:{type: Schema.Types.ObjectId, ref:"User"}}],
     members: [{member:{type: Schema.Types.ObjectId, ref:"User"}}],
